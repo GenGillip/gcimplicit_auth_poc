@@ -4,6 +4,7 @@ import platformClient from 'purecloud-platform-client-v2';
 const CLIENT_ID = import.meta.env.VITE_GC_CLIENT_ID;  // OAuth client id
 const REDIRECT_URI = import.meta.env.VITE_GC_REDIRECT_URI; // http://localhost:5173
 const ENVIRONMENT = import.meta.env.VITE_GC_REGION;        // e.g. mypurecloud.com
+const client = platformClient.ApiClient.instance;
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -11,7 +12,6 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const client = platformClient.ApiClient.instance;
     client.setEnvironment(ENVIRONMENT);
 
     if (window.location.hash) {
@@ -26,14 +26,15 @@ function App() {
   }, []);
 
   const handleLogin = () => {
-    const client = platformClient.ApiClient.instance;
     client.setEnvironment(ENVIRONMENT);
     client.loginImplicitGrant(CLIENT_ID, REDIRECT_URI);
   };
 
   const handleLogout = () => {
+    client.logout(REDIRECT_URI);
     setAuthenticated(false);
     setUser(null);
+    // amazonq-ignore-next-line
     window.location.hash = '';
   };
 
