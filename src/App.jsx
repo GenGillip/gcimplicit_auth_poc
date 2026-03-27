@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import platformClient from 'purecloud-platform-client-v2';
 
-const CLIENT_ID = '2518cd72-b1f9-45ca-8b19-806774b4fb48';
-const REDIRECT_URI = 'http://localhost:3001';
-const ENVIRONMENT = 'usw2.pure.cloud';
+const CLIENT_ID = import.meta.env.VITE_GC_CLIENT_ID;  // OAuth client id
+const REDIRECT_URI = import.meta.env.VITE_GC_REDIRECT_URI; // http://localhost:5173
+const ENVIRONMENT = import.meta.env.VITE_GC_REGION;        // e.g. mypurecloud.com
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
