@@ -9,20 +9,20 @@ A minimal React + Vite proof-of-concept demonstrating **OAuth 2.0 Implicit Grant
 The **Implicit Grant** flow is designed for browser-based (public client) applications that cannot securely store a client secret. Here's the step-by-step flow:
 
 ```
-┌──────────┐                          ┌──────────────────┐                     ┌──────────────┐
+┌────────── ┐                          ┌──────────────────┐                     ┌──────────────┐
 │  Browser  │                          │  Genesys Cloud   │                     │  Your App    │
 │  (User)   │                          │  Auth Server     │                     │  (SPA)       │
 └─────┬─────┘                          └────────┬─────────┘                     └──────┬───────┘
       │                                         │                                      │
       │  1. User clicks "Login"                 │                                      │
-      │ ──────────────────────────────────────────────────────────────────────────────> │
+      │ ─────────────────────────────────────────────────────────────────────────────> │
       │                                         │                                      │
       │  2. App redirects to GC login page      │                                      │
-      │ <────────────────────────────────────────────────────────────────────────────── │
+      │ <───────────────────────────────────────────────────────────────────────────── │
       │         https://login.{env}/oauth/authorize?                                   │
       │           response_type=token&                                                 │
       │           client_id=YOUR_CLIENT_ID&                                            │
-      │           redirect_uri=http://localhost:3001                                    │
+      │           redirect_uri=http://localhost:3001                                   │
       │                                         │                                      │
       │  3. User enters credentials             │                                      │
       │ ──────────────────────────────────────> │                                      │
@@ -33,14 +33,14 @@ The **Implicit Grant** flow is designed for browser-based (public client) applic
       │         http://localhost:3001/#access_token=abc123&token_type=bearer&expires_in=...
       │                                         │                                      │
       │  5. Browser loads app, SDK reads hash   │                                      │
-      │ ──────────────────────────────────────────────────────────────────────────────> │
+      │ ─────────────────────────────────────────────────────────────────────────────> │
       │                                         │                                      │
       │  6. App calls GC APIs with token        │                                      │
       │                                         │ <─────────── API request ─────────── │
       │                                         │ ────────── API response ───────────> │
       │                                         │                                      │
       │  7. App displays user data              │                                      │
-      │ <────────────────────────────────────────────────────────────────────────────── │
+      │ <───────────────────────────────────────────────────────────────────────────── │
 ```
 
 ### Key Concepts
@@ -123,7 +123,7 @@ VITE_GC_REDIRECT_URI=http://localhost:3001
 | Variable | Description | Example Values |
 |---|---|---|
 | `VITE_GC_REGION` | Genesys Cloud API host for your region | `mypurecloud.com`, `mypurecloud.ie`, `mypurecloud.de`, `mypurecloud.jp`, `mypurecloud.com.au`, `usw2.pure.cloud`, `cac1.pure.cloud`, `euw2.pure.cloud` |
-| `VITE_GC_CLIENT_ID` | OAuth Client ID from Genesys Cloud Admin | `2518cd72-b1f9-45ca-8b19-...` |
+| `VITE_GC_CLIENT_ID` | OAuth Client ID from Genesys Cloud Admin | `UUID...` |
 | `VITE_GC_REDIRECT_URI` | Must match the Vite dev server URL and the OAuth client's authorized redirect URI | `http://localhost:3001` |
 
 > The `VITE_` prefix is required by Vite to expose env vars to client-side code.
