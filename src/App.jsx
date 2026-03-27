@@ -34,7 +34,6 @@ function App() {
     client.logout(REDIRECT_URI);
     setAuthenticated(false);
     setUser(null);
-    // amazonq-ignore-next-line
     window.location.hash = '';
   };
 
